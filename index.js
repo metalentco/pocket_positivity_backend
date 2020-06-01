@@ -1,8 +1,12 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
-const pool = require("./db");
+
+const pool = require("./heroku_db");
+
 const port = process.env.PORT || 5000;
+
+console.log(process.env.PORT);
 
 app.use(cors());
 app.use(express.json());

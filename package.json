@@ -10,7 +10,7 @@
     "node": "8.5.0",
     "npm": "5.3.0"
   },
-  "author": "",
+  "author": "metalentco",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",

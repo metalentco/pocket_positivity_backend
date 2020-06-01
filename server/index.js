@@ -77,6 +77,77 @@ app.delete("/users/:id", async (req, res) => {
   }
 });
 
+// MANTRAS
+
+app.post("/mantras", async (req, res) => {
+  try {
+    const { mantra } = req.body;
+    const newMantra = await pool.query(
+      "INSERT INTO mantras (mantra) VALUES ($1) RETURNING * ",
+      [mantra]
+    );
+    res.json(newMantra.rows[0]);
+  } catch (err) {
+    console.error(err.message);
+  }
+});
+
+app.get("/mantras", async (req, res) => {
+  try {
+    const allMantras = await pool.query("SELECT * FROM mantras;");
+
+    res.json(allMantras.rows);
+  } catch (err) {
+    console.error(err.message);
+  }
+});
+
+app.get("/mantras/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const mantra = await pool.query(
+      "SELECT * FROM mantras WHERE mantra_id = $1",
+      [id]
+    );
+
+    res.json(mantra.rows[0]);
+  } catch (err) {
+    console.error(err.messsage);
+  }
+});
+
+app.put("/mantras/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { mantra } = req.body;
+
+    const updateMantra = await pool.query(
+      "UPDATE mantras SET mantra = $1 WHERE mantra_id = $2",
+      [mantra, id]
+    );
+
+    res.json("Mantra was updated");
+  } catch (err) {
+    console.error(err.messsage);
+  }
+});
+
+app.delete("/mantras/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const deleteUser = await pool.query(
+      "DELETE FROM mantras WHERE mantra_id= $1",
+      [id]
+    );
+
+    res.json("Mantra was deleted");
+  } catch (error) {
+    console.error(error);
+  }
+});
+
+// SCORE
+
 app.listen(5000, () => {
   console.log(`server has started on port 5000`);
 });

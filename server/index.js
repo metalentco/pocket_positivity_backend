@@ -33,6 +33,19 @@ app.get("/users", async (req, res) => {
   }
 });
 
+app.get("/users/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const tweet = await pool.query("SELECT * FROM users WHERE user_id = $1", [
+      id,
+    ]);
+
+    res.json(tweet.rows[0]);
+  } catch (err) {
+    console.error(err.messsage);
+  }
+});
+
 app.listen(5000, () => {
   console.log(`server has started on port 5000`);
 });

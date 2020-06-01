@@ -36,11 +36,29 @@ app.get("/users", async (req, res) => {
 app.get("/users/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const tweet = await pool.query("SELECT * FROM users WHERE user_id = $1", [
+    const user = await pool.query("SELECT * FROM users WHERE user_id = $1", [
       id,
     ]);
 
-    res.json(tweet.rows[0]);
+    res.json(user.rows[0]);
+  } catch (err) {
+    console.error(err.messsage);
+  }
+});
+
+app.put("/users/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { username } = req.body;
+    const { email } = req.body;
+    const { password } = req.body;
+
+    const updateUser = await pool.query(
+      "UPDATE users SET (username, email, password) = ($1, $2, $3) WHERE user_id = $4",
+      [username, email, password, id]
+    );
+
+    res.json("User was updated");
   } catch (err) {
     console.error(err.messsage);
   }

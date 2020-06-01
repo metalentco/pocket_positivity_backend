@@ -148,6 +148,64 @@ app.delete("/mantras/:id", async (req, res) => {
 
 // SCORE
 
+app.post("/scores/:user_id", async (req, res) => {
+  try {
+    const { user_id } = req.params;
+    const { score } = req.body;
+    const newScore = await pool.query(
+      "INSERT INTO scores (score, user_id_fk) VALUES ($1, $2) RETURNING * ",
+      [score, user_id]
+    );
+    res.json(newScore.rows[0]);
+  } catch (err) {
+    console.error(err.message);
+  }
+});
+
+app.get("/scores/:user_id", async (req, res) => {
+  try {
+    const { user_id } = req.params;
+    const allScores = await pool.query(
+      "SELECT * FROM scores WHERE user_id_fk = $1;",
+      [user_id]
+    );
+
+    res.json(allScores.rows);
+  } catch (err) {
+    console.error(err.message);
+  }
+});
+
+app.put("/scores/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { score } = req.body;
+
+    const updateMantra = await pool.query(
+      "UPDATE scores SET score = $1 WHERE score_id = $2",
+      [score, id]
+    );
+
+    res.json("Score was updated");
+  } catch (err) {
+    console.error(err.messsage);
+  }
+});
+
+app.delete("/scores/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const deleteUser = await pool.query(
+      "DELETE FROM scores WHERE score_id= $1",
+      [id]
+    );
+
+    res.json("Score was deleted");
+  } catch (error) {
+    console.error(error);
+  }
+});
+
 app.listen(5000, () => {
   console.log(`server has started on port 5000`);
 });

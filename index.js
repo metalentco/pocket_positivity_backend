@@ -85,6 +85,7 @@ app.delete("/users/:id", async (req, res) => {
 app.post("/mantras/:id", async (req, res) => {
   try {
     const { mantra } = req.body;
+    const { user_id_fk } = req.params;
     const newMantra = await pool.query(
       "INSERT INTO mantras (mantra, user_id_fk) VALUES ($1, $2) RETURNING * ",
       [mantra, user_id_fk]

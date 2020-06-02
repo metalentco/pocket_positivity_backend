@@ -156,9 +156,10 @@ app.post("/scores/:user_id", async (req, res) => {
   try {
     const { user_id } = req.params;
     const { score } = req.body;
+    const { comment } = req.body;
     const newScore = await pool.query(
-      "INSERT INTO scores (score, user_id_fk) VALUES ($1, $2) RETURNING * ",
-      [score, user_id]
+      "INSERT INTO scores (score, user_id_fk, comment) VALUES ($1, $2, $3) RETURNING * ",
+      [score, user_id, comment]
     );
     res.json(newScore.rows[0]);
   } catch (err) {

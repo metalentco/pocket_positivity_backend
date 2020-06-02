@@ -1,6 +1,6 @@
 # Pocket Positivity Backend
 
-This is the Node.js / Express.js and PostgreSQL backend server & database for the **Pocket Positivity** app. It runs a RESTful API pointing to [**this**](https://help-for-heroes.herokuapp.com/) that the app uses to access and store data from the aplication. The Frontend of the app can be found at [**this repo**](https://github.com/metalentco/pocket_positivity_hackathon).
+This is the Node.js / Express.js and PostgreSQL backend server & database for the **Pocket Positivity** app. It runs a RESTful API pointing to [**this**](https://help-for-heroes.herokuapp.com/) that the app uses to access and store data from the aplication. The Frontend of the app can be found at [**this repo**](https://github.com/metalentco/pocket_positivity_backend).
 
 ---
 

@@ -6,8 +6,6 @@ const pool = require("./heroku_db");
 
 const port = process.env.PORT || 5000;
 
-console.log(process.env.PORT);
-
 app.use(cors());
 app.use(express.json());
 
@@ -111,7 +109,7 @@ app.get("/mantras/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const mantra = await pool.query(
-      "SELECT * FROM mantras WHERE mantra_id = $1",
+      "SELECT * FROM mantras WHERE user_id_fk = $1",
       [id]
     );
 
@@ -141,7 +139,7 @@ app.delete("/mantras/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const deleteUser = await pool.query(
-      "DELETE FROM mantras WHERE mantra_id= $1",
+      "DELETE FROM mantras WHERE mantra_id = $1",
       [id]
     );
 
